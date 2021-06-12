@@ -1,5 +1,5 @@
 /* ---- CSS utilies ----*/
-p{
+p, h1{
   margin: 0;
   padding: 0;
 }
@@ -48,28 +48,76 @@ p{
   .m-generator-container{
     width: 95%;
     flex-direction: column;
+    justify-content: initial;
+  }
+}
+.meme{
+  height: 100%;
+  width: 100%;
+  border: 1px solid #aeaeae;
+  border-radius: 1rem;
+  position: relative;
+}
+@media screen and (max-width: 980px){
+  .meme{
+    height: calc(100% - 39rem);
+    width: 100%;
   }
 }
 .meme-view{
-  height: calc(100% - 10rem);
-  width: 50%;
+  height: 100%;
+  width: 100%;
   border-radius: 1rem;
 }
-@media screen and (max-width: 980px){
-  .meme-view{
-    width: 95%;
-  }
+.meme > p {
+  position: absolute;
+  width: 80%;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 15px 0;
+  padding: 0 5px;
+  font-family: impact, sans-serif;
+  font-size: 2em;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 1px;
+  text-shadow:
+      2px 2px 0 #000,
+      -2px -2px 0 #000,
+      2px -2px 0 #000,
+      -2px 2px 0 #000,
+      0 2px 0 #000,
+      2px 0 0 #000,
+      0 -2px 0 #000,
+      -2px 0 0 #000,
+      2px 2px 5px #000;
+}
+.top{
+  top: 0;
+}
+.bottom{
+  bottom: 0;
 }
 .meme-form{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+}
+h1{
+  font-size: 5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4rem;
 }
 .input-container{
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
   margin: 1rem 0;
 }
 .input-container > label{
@@ -88,7 +136,7 @@ p{
 }
 .submit-button{
   display: block;
-  width: 100%;
+  width: 20rem;
   height: 4rem;
   font-size: 1.8rem;
   color: #e8e8e8;

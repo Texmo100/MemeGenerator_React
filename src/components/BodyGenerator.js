@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Meme from './Meme'
+import MemeForm from './MemeForm'
 
 class BodyGenerator extends Component {
     constructor() {
@@ -11,8 +13,10 @@ class BodyGenerator extends Component {
         }
 
         this.textHandle = this.textHandle.bind(this)
+        this.submitHandle = this.submitHandle.bind(this)
     }
 
+    // ---- ComponentDidMount function
     componentDidMount = () => {
         fetch('https://api.imgflip.com/get_memes')
          .then(response => response.json())
@@ -23,45 +27,41 @@ class BodyGenerator extends Component {
          })
     }
 
+    // ---- Text handle function
     textHandle = (event) => {
         const { name, value } = event.target
         this.setState({ [name]: value })
+    }
+
+    // ---- Submit handle funcion
+    submitHandle = (event) => {
+        event.preventDefault()
+        const randNum = Math.floor(Math.random() * this.state.allMemes.length)
+        console.log(randNum)
+        const urlImg = this.state.allMemes[randNum].url
+        this.setState({randomImage: urlImg})
     }
 
     render() {
         return (
             <div className="body-app">
                 <div className="m-generator-container">
-                    {/* Meme View Image */}
-                    <img className="meme-view" src={this.state.randomImage} alt="meme"/>
+                    {/* Meme */}
+                    <Meme 
+                        meme={this.state.randomImage}
+                        alt="meme"
+                        topText={this.state.topText}
+                        bottomText={this.state.bottomText}
+                    />
 
                     {/* Meme Form */}
-                    <form className="meme-form">
-                        <div className="input-container">
-                            <label>Top Text</label>
-                            <input
-                                type="text"
-                                name="topText"
-                                value={this.state.topText}
-                                placeholder="top text"
-                                onChange={this.textHandle}
-                            />
-                        </div>
+                    <MemeForm 
+                        submitHandle={this.submitHandle}
+                        textHandle={this.textHandle}
+                        topText={this.state.topText}
+                        bottomText={this.state.bottomText}
 
-                        <div className="input-container">
-                            <label>Top Text</label>
-                            <input
-                                type="text"
-                                name="bottomText"
-                                value={this.state.bottomText}
-                                placeholder="bottom text"
-                                onChange={this.textHandle}
-                            />
-                        </div>
-
-                        <button className="submit-button">Gen</button>
-
-                    </form>
+                    />
                 </div>
             </div>
         )
