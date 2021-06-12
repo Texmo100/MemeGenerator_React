@@ -1,10 +1,15 @@
 import React from 'react'
+import Header from './components/Header'
+import BodyGenerator from './components/BodyGenerator'
+import Footer from './components/Footer'
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="wrapper">
-      <h1>Hey yui this the Y - Meme Generator</h1>
+      <Header />
+      <BodyGenerator />
+      <Footer />
     </div>
   );
 }
