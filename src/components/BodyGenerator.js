@@ -5,10 +5,22 @@ class BodyGenerator extends Component {
         super()
         this.state = {
             topText: '',
-            bottomText: ''
+            bottomText: '',
+            randomImage: '',
+            allMemes: []
         }
 
         this.textHandle = this.textHandle.bind(this)
+    }
+
+    componentDidMount = () => {
+        fetch('https://api.imgflip.com/get_memes')
+         .then(response => response.json())
+         .then(response => {
+             const {data} = response
+             const {memes} = data
+             this.setState({randomImage: memes[3].url, allMemes: memes})
+         })
     }
 
     textHandle = (event) => {
@@ -21,16 +33,16 @@ class BodyGenerator extends Component {
             <div className="body-app">
                 <div className="m-generator-container">
                     {/* Meme View Image */}
-                    <image className="meme-view" src='../images/image-01.jpg' alt="meme"/>
+                    <img className="meme-view" src={this.state.randomImage} alt="meme"/>
 
                     {/* Meme Form */}
-                    <div className="meme-form">
+                    <form className="meme-form">
                         <div className="input-container">
                             <label>Top Text</label>
                             <input
                                 type="text"
                                 name="topText"
-                                value={this.topText}
+                                value={this.state.topText}
                                 placeholder="top text"
                                 onChange={this.textHandle}
                             />
@@ -41,13 +53,15 @@ class BodyGenerator extends Component {
                             <input
                                 type="text"
                                 name="bottomText"
-                                value={this.bottomText}
+                                value={this.state.bottomText}
                                 placeholder="bottom text"
                                 onChange={this.textHandle}
                             />
                         </div>
 
-                    </div>
+                        <button className="submit-button">Gen</button>
+
+                    </form>
                 </div>
             </div>
         )
